@@ -14,7 +14,7 @@ pipeline {
     stage('Docker Build') {
       agent any
       steps {
-        sh 'docker build -t bujji .'
+        sh 'docker build -t eswar .'
       }
     }
   }
