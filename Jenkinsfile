@@ -1,17 +1,15 @@
 pipeline {
-    agent any
-    
-    stages {
-        stage ('build') {
-           steps {
-               sh 'mvn clean install'
-           }
-        }	
-        stage ('deploy') {
-            steps {
-                sh 'cp /root/.jenkins/workspace/sample/target/*.war /opt/tomcat/webapps'
-            }
+  agent none
+  stages {
+    stage('Maven Install') {
+      agent {
+        docker {
+          image 'maven:3.5.0'
         }
-
-    }
+      }
+      steps {
+        sh 'mvn clean install'
+      }
+    } 
+  }
 }
