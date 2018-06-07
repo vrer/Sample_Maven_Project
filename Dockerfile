@@ -1,3 +1,5 @@
-FROM docker.io/tomcat
-MAINTAINER bujji-eswar
-COPY simple-web-app.war /usr/local/tomcat/webapps/bujji.war
+FROM docker.io/maven
+RUN yum install git
+RUN git clone https://github.com/Eswar6/Maven.git
+WORKDIR Maven
+RUN mvn clean install
