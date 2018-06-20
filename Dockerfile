@@ -1,5 +1,5 @@
 FROM docker.io/centos
-MAINTAINER bujji@66
+MAINTAINER reddy
 RUN yum update -y
 RUN yum install java -y
 RUN yum install maven -y
