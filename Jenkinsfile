@@ -13,7 +13,7 @@ pipeline {
         stage ('Compile Stage') {
 
             steps {
-			dir("/root/.jenkins/workspace/Pipeline Project/Maven"){
+			dir("/root/.jenkins/workspace/Bala_Pipeline/Maven"){
 			sh 'mvn clean install'
             }
             }
