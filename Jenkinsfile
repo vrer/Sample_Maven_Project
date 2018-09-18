@@ -6,15 +6,14 @@ pipeline {
 		stage ('Checkout Stage') {
 
             steps {
-					sh 'rm -rf Mavendemo'
-                    sh 'git clone https://github.com/kasiviswa456/Mavendemo.git'
+                    sh 'git clone https://github.com/reddyeswar6/Maven.git'
                 
             }
         }
         stage ('Compile Stage') {
 
             steps {
-			dir("/root/.jenkins/workspace/Pipeline/Mavendemo"){
+			dir("/root/.jenkins/workspace/Pipeline Project/Maven"){
 			sh 'mvn clean install'
             }
             }
