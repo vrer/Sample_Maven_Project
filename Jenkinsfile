@@ -3,13 +3,6 @@ pipeline {
 
     stages {
 		
-		stage ('Checkout Stage') {
-
-            steps {
-                    sh 'git clone https://github.com/reddyeswar6/Maven.git'
-                
-            }
-        }
         stage ('Compile Stage') {
 
             steps {
