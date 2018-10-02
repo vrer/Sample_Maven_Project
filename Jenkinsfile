@@ -17,7 +17,7 @@ pipeline {
 
             steps {
                 
-                    sh 'cp /root/.jenkins/workspace/pipeline/Mavendemo/target/maven-1.0.0.war /root/tomcat/apache-tomcat-9.0.10/webapps/'
+                    sh 'cp /root/.jenkins/workspace/reddy/target/simple-web-app.war /root/apache-tomcat-8.5.34/webapps '
               
             }
         }
