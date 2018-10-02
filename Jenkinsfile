@@ -3,10 +3,10 @@ pipeline {
 
     stages {
 		
-        stage ('Compile Stage') {
+        stage ('Build Stage') {
 
             steps {
-			dir("/root/.jenkins/workspace/reddy"){
+			dir("/root/.jenkins/workspace/new_1"){
 			sh 'mvn clean install'
             }
             }
@@ -17,7 +17,7 @@ pipeline {
 
             steps {
                 
-                    sh 'cp /root/.jenkins/workspace/reddy/target/simple-web-app.war /root/apache-tomcat-8.5.34/webapps '
+                    sh 'cp /root/.jenkins/workspace/new_1/target/simple-web-app.war /opt/apache-tomcat-8.5.34/webapps '
               
             }
         }
