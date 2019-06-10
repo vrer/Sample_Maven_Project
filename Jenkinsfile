@@ -1,28 +1,16 @@
 pipeline {
     agent any
+     stage('scm checkout'){
+       git 'https://github.com/vrer2/Sample_Project.git'
+     
+     }
+     stage('mvn package'){
+          def mvnHome = tool name: 'mvn', type: 'maven' 
+          sh '${mvnHome}/bin/mvn clean install'
+          }
+     stage('deploying war file into tomcat'){
+         cp '/var/lib/jenkins/workspace/deploy/target/*.war /opt/tomcat/apache-tomcat-8.5.37/webapps/'
 
-    stages {
-		
-        stage ('Build Stage') {
-
-            steps {
-			dir("/root/.jenkins/workspace/abc"){
-			sh 'mvn clean install'
-            }
-            }
-        }
-
-        
-		stage ('Deployment Stage') {
-
-            steps {
-                
-                    sh 'cp /root/.jenkins/workspace/abc/target/simple-web-app.war /opt/apache-tomcat-8.5.34/webapps '
-              
-            }
-        }
-
-
-        
-    }
-}
+     }          
+    }     
+     
