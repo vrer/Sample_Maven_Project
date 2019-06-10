@@ -4,7 +4,6 @@ pipeline {
         stage ('Build Stage') {
             steps {
 			dir("/var/lib/jenkins/workspace/deploy/"){
-			def mvnHome = tool name: 'mvn', type: 'maven'
 			sh 'mvn clean install'
             }
             }
