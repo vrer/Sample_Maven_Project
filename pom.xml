@@ -200,14 +200,14 @@
 	</build>
 	 <distributionManagement>
               <repository>
-		  <id>1</id>
+		  <id>Chala_Release</id>
 	          <name>Internal releases</name>
-		      <url>http://13.126.216.158:8081/nexus/content/repositories/1</url>
+		      <url>http://13.235.103.61:8081/nexus/content/repositories/Chala_Release/1</url>
 	      </repository>
 	      <snapshotRepository>
-		  <id>deployment</id>
+		  <id>Chala_Snapshot</id>
 		  <name>2</name>
-		  <url>http://13.126.216.158:8081/nexus/content/repositories/2</url>
+		  <url>http://13.235.103.61:8081/nexus/content/repositories/Chala_Snapshot/2</url>
 	      </snapshotRepository>
 	 </distributionManagement>
 	<name>simple-web-app</name>
