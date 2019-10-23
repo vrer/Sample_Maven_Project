@@ -202,12 +202,12 @@
               <repository>
 		  <id>Chala_Release</id>
 	          <name>Chala_Release</name>
-		      <url>http://13.235.134.239:8081/nexus/content/repositories/Chala_Release/</url>
+		      <url>http://13.235.247.133:8081/nexus/content/repositories/Chala_Release/</url>
 	      </repository>
 	      <snapshotRepository>
 		  <id>Chala_Snapshot</id>
 		  <name>2</name>
-		  <url>http://13.235.134.239:8081/nexus/content/repositories/Chala_Snapshot/</url>
+		  <url>http://13.235.247.133:8081/nexus/content/repositories/Chala_Snapshot/</url>
 	      </snapshotRepository>
 	 </distributionManagement>
 	<name>simple-web-app</name>
