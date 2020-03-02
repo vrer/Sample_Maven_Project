@@ -198,5 +198,17 @@
 			</plugin>
 		</plugins>
 	</build>
+ <distributionManagement>
+              <repository>
+                  <id>Release</id>
+                  <name>Release</name>
+                      <url>http://34.239.184.148:8081/repository/Maven_Hosted/</url>
+              </repository>
+              <snapshotRepository>
+                  <id>Snapshot</id>
+                  <name>Snapshot</name>
+                  <url>http://34.239.184.148:8081/repository/Maven2_HSnap/</url>
+              </snapshotRepository>
+ </distributionManagement>
 	
 </project>
