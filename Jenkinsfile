@@ -6,9 +6,14 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vrer2/Sample_Project.git']]])
             }
         }
-        stage ("test") {
+        stage ("sonar analasys") {
+            environment {
+                scannerHome = tool 'sonarscanner'
+            }
             steps {
-                sh "touch testing"
+                withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
             }
         }
         stage ("test2") {
