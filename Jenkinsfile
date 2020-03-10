@@ -16,9 +16,11 @@ pipeline {
                 }
             }
         }
-        stage ("test2") {
+        stage ("quality gate check") {
             steps {
-                sh "export"
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
