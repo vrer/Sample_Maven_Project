@@ -23,9 +23,14 @@ pipeline {
                 }
             }
         }
-        stage ('maven build') {
+        stage ('maven compile') {
             steps {
-                    sh "mvn install"
+                sh "mvn compile"
+            }
+        }
+        stage ('maven package') {
+            steps {
+                sh "mvn package"
             }
         }
     }
