@@ -1,9 +1,12 @@
 pipeline {
     agent any
-    stages {
-        stage ("scm") {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vrer2/Sample_Project.git']]])
+    tools {
+        maven 'maven'
+    }
+        stages {
+            stage ("scm") {
+                steps {
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vrer2/Sample_Project.git']]])
             }
         }
         stage ("sonar analasys") {
