@@ -38,7 +38,7 @@ pipeline {
         }
         stage ('nexus uploader') {
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.89.108.103:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '2.0'
+                nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.89.108.103:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '2.1'
             }
         }
         stage ('tomcat deploy') {
