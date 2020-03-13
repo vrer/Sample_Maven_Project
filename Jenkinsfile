@@ -38,7 +38,7 @@ pipeline {
         }
         stage ('nexus uploader') {
             steps {
-                nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'nexus_relese', packages: [[$class: 'MavenPackage', mavenAssetList: [], mavenCoordinate: [artifactId: 'simple-web-app', groupId: 'org.mitre', packaging: '.war', version: '5.6']]]
+                nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'nexus_relese', packages: [[$class: 'MavenPackage', mavenAssetList: [], mavenCoordinate: [artifactId: 'simple-web-app', groupId: 'org.mitre', packaging: 'war', version: '5.6']]]
             }
         }
     }
