@@ -38,7 +38,7 @@ pipeline {
         }
         stage ('nexus uploader') {
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.89.108.103.8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'http://3.89.108.103:8081/repository/nexus_relese/', version: '4.0'
+                nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'nexus_relese', packages: []
             }
         }
     }
