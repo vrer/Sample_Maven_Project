@@ -43,7 +43,7 @@ pipeline {
         }
         stage ('tomcat deploy') {
             steps {
-                sh "curl http://3.89.108.103:8081/repository/nexus_relese/org/mitre/simple-web-app/4.9/simple-web-app-4.9.war /opt/apache-tomcat-8.5.51/webapps "
+                sh "cp target/*war /opt/apache-tomcat-8.5.51/webapps"
             }
         }
     }
