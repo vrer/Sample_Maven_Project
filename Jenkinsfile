@@ -43,7 +43,7 @@ pipeline {
         }
         stage ('tomcat deploy') {
             steps {
-                sh "cp target/*war /opt/apache-tomcat-8.5.51/webapps"
+                sh "sudo cp target/*war /opt/apache-tomcat-8.5.51/webapps"
             }
         }
     }
