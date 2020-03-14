@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'pipeline_slave'}
     tools {
         maven 'maven'
     }
@@ -38,7 +38,7 @@ pipeline {
         }
         stage ('nexus uploader') {
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '2.7'
+                nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '2.5'
             }
         }
         stage ('tomcat deploy') {
