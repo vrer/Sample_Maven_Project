@@ -53,7 +53,7 @@ pipeline {
                         if (env.branch_name == 'master') {
                             sh "mvn compile"
                         } else {
-                            sh "this is not a master branch"
+                            sh "echo this is not a master branch"
                         }
                     }
                 }
@@ -71,7 +71,7 @@ pipeline {
                         if (env.branch_name == 'master') {
                             nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '7.6'
                         } else {
-                            sh "this is not a master branch"
+                            sh "echo this is not a master branch"
                             
                         }
                     }
@@ -84,7 +84,7 @@ pipeline {
                         if (env.branch_name == 'master') {
                             sh "sudo cp target/*war /opt/apache-tomcat-8.5.51/webapps"
                         } else {
-                            sh "this is not a master branch"
+                            sh "echo this is not a master branch"
                         }
                     }
                 }
