@@ -18,7 +18,7 @@ pipeline {
                 environment {
                     scannerHome = tool 'sonarscanner'
                 }
-                if (env.branch_name='master') { 
+                if (env.branch_name == 'master') { 
                     steps {
                         withSonarQubeEnv('sonarqube') {
                             sh "${scannerHome}/bin/sonar-scanner"
@@ -51,7 +51,7 @@ pipeline {
             stage ('nexus uploader') {
                 agent { label "pipeline_slave" }
                 steps {
-                    nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '2.5'
+                    nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '3.9'
                 }
             }
             stage ('tomcat deploy') {
