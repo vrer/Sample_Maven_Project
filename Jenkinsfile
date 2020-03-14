@@ -22,7 +22,7 @@ pipeline {
             }
             stage ("quality gate check") {
                 agent { label "pipeline_slave" }
-                steps {a
+                steps {
                     timeout(time: 2, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
                     }
