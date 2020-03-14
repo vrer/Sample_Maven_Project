@@ -20,28 +20,42 @@ pipeline {
                 environment {
                     scannerHome = tool 'sonarscanner'
                 }
-                if (env.branch_name == 'master') { 
-                    steps {
-                        withSonarQubeEnv('sonarqube') {
-                            sh "${scannerHome}/bin/sonar-scanner"
+                steps {
+                    script {
+                        if (env.branch_name == 'master') { 
+                            withSonarQubeEnv('sonarqube') {
+                                sh "${scannerHome}/bin/sonar-scanner"
+                            }
+                        } else { 
+                            sh "echo this is not a master branch"
                         }
                     }
-                } else {
-                    sh "echo this is not a master branch"
                 }
             }
             stage ("quality gate check") {
                 agent { label "pipeline_slave" }
                 steps {
-                    timeout(time: 2, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
+                    script {
+                        if (env.branch_name == 'master') {
+                            timeout(time: 2, unit: 'MINUTES') {
+                                waitForQualityGate abortPipeline: true
+                            }
+                        } else {
+                            sh "echo this is not a master branch"
+                        }
                     }
                 }
             }
             stage ('maven compile') {
                 agent { label "pipeline_slave" }
                 steps {
-                    sh "mvn compile"
+                    script {
+                        if (env.branch_name == 'master') {
+                            sh "mvn compile"
+                        } else {
+                            sh "this is not a master branch"
+                        }
+                    }
                 }
             }
             stage ('maven package') {
@@ -53,16 +67,29 @@ pipeline {
             stage ('nexus uploader') {
                 agent { label "pipeline_slave" }
                 steps {
-                    nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '2.5'
+                    script {
+                        if (env.branch_name == 'master') {
+                            nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '7.6'
+                        } else {
+                            sh "this is not a master branch"
+                            
+                        }
+                    }
                 }
             }
             stage ('tomcat deploy') {
                 agent { label "pipeline_slave" }
                 steps {
-                    sh "sudo cp target/*war /opt/apache-tomcat-8.5.51/webapps"
+                    script {
+                        if (env.branch_name == 'master') {
+                            sh "sudo cp target/*war /opt/apache-tomcat-8.5.51/webapps"
+                        } else {
+                            sh "this is not a master branch"
+                        }
+                    }
                 }
             }
-    }
+        }
     post {
     success {
         emailext (
