@@ -1,10 +1,11 @@
 pipeline {
-    agent { label 'pipeline_slave'}
+    agent any
     tools {
         maven 'maven'
     }
         stages {
             stage ("scm") {
+                node { 'pipeline_slave' }
                 steps {
                     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vrer2/Sample_Project.git']]])
                     }
