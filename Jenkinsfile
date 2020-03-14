@@ -5,12 +5,14 @@ pipeline {
     }
         stages {
             stage ("scm") {
-                if (env.branch_name == "master") {
-                    steps {
-                        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vrer2/Sample_Project.git']]])
+                script {
+                    if (env.branch_name == "master") {
+                        steps {
+                            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vrer2/Sample_Project.git']]])
+                        }
+                    } else {
+                        sh "echo this is not a master branch"
                     }
-                } else {
-                    sh "echo this is not a master branch"
                 }
             }
             stage ("sonar analasys") {
@@ -51,7 +53,7 @@ pipeline {
             stage ('nexus uploader') {
                 agent { label "pipeline_slave" }
                 steps {
-                    nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '3.9'
+                    nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.94.170.55:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '2.5'
                 }
             }
             stage ('tomcat deploy') {
