@@ -16,7 +16,6 @@ pipeline {
                 }
             }
             stage ("sonar analasys") {
-                agent { label "pipeline_slave" }
                 environment {
                     scannerHome = tool 'sonarscanner'
                 }
@@ -32,8 +31,7 @@ pipeline {
                     }
                 }
             }
-            stage ("quality gate check") {
-                agent { label "pipeline_slave" }
+            stage ("quality gate check") { 
                 steps {
                     script {
                         if (env.branch_name == 'master') {
@@ -47,7 +45,6 @@ pipeline {
                 }
             }
             stage ('maven compile') {
-                agent { label "pipeline_slave" }
                 steps {
                     script {
                         if (env.branch_name == 'master') {
@@ -59,13 +56,11 @@ pipeline {
                 }
             }
             stage ('maven package') {
-                agent { label "pipeline_slave" }
                 steps {
                     sh "mvn package"
                 }
             }
             stage ('nexus uploader') {
-                agent { label "pipeline_slave" }
                 steps {
                     script {
                         if (env.branch_name == 'master') {
@@ -78,7 +73,6 @@ pipeline {
                 }
             }
             stage ('tomcat deploy') {
-                agent { label "pipeline_slave" }
                 steps {
                     script {
                         if (env.branch_name == 'master') {
