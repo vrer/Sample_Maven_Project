@@ -30,7 +30,7 @@ pipeline {
     }
     stage ('docker') {
       steps { 
-        sh 'docker build -t dileep9:dileep9 .'
+        docker.build("dileep5:dileep5")
       }
     }
   }
