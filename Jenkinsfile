@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage ("SCM_CHECKOUT") {
       steps {
-            git branch: 'develop', url: 'https://github.com/vrer2/Sample_Project.git'
+            git branch: 'master', url: 'https://github.com/vrer2/Sample_Project.git'
       }
     }
     stage ("scan") {
