@@ -42,5 +42,10 @@ pipeline {
         sh "docker push 340043406172.dkr.ecr.us-east-2.amazonaws.com/dileep:dileep6"
       }
     }
+    stage ('deploy to ecs') {
+      steps {
+        sh "aws ecs update-service --cluster cluster --service tomcat --force-new-deployment --region us-east-2"
+      }
+    }
   }
 }
