@@ -3,14 +3,7 @@ pipeline {
   stages {
     stage ("SCM_CHECKOUT") {
       steps {
-        script { 
-          if (env.BRANCH_NAME == 'master') {
-            git url: 'https://github.com/vrer2/Sample_Project.git'
-          }
-          else {
             git branch: 'develop', url: 'https://github.com/vrer2/Sample_Project.git'
-          }
-        }
       }
     }
     stage ("scan") {
