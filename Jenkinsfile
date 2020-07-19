@@ -30,7 +30,9 @@ pipeline {
     }
     stage ('docker') {
       steps { 
-        docker.build("dileep5:dileep5")
+        script {
+          docker.build("dileep5:dileep5")
+        }
       }
     }
   }
