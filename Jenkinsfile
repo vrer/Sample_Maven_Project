@@ -38,8 +38,8 @@ pipeline {
     stage ('ecr') {
       steps {
         sh "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 340043406172.dkr.ecr.us-east-2.amazonaws.com"
-        sh "docker tag dileep6:dileep6 340043406172.dkr.ecr.us-east-2.amazonaws.com/dileep6:dileep6"
-        sh "docker push 340043406172.dkr.ecr.us-east-2.amazonaws.com/dileep6:dileep6"
+        sh "docker tag dileep6:dileep6 340043406172.dkr.ecr.us-east-2.amazonaws.com/dileep:dileep6"
+        sh "docker push 340043406172.dkr.ecr.us-east-2.amazonaws.com/dileep:dileep6"
       }
     }
   }
