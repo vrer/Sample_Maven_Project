@@ -9,7 +9,7 @@
 		<div class="span10 offset1">
 
 			<h1>
-				Hello world ECS!
+				Hello world ECS deploy!
 			</h1>
 		
 			<div>
