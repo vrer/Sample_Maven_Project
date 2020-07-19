@@ -1,103 +1,44 @@
 pipeline {
-    agent any
-    tools {
-        maven 'maven'
-    }
-        stages {
-            stage ("scm") {
-                steps {
-                    script {
-                        if (env.branch_name == "master") {
-                            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vrer2/Sample_Project.git']]])
-                        } else {
-                            sh "echo this is not a master branch"
-                        }
-                    }
-                }
-            }
-            stage ("sonar analasys") {
-                environment {
-                    scannerHome = tool 'sonarscanner'
-                }
-                steps {
-                    script {
-                        if (env.branch_name == 'master') { 
-                            withSonarQubeEnv('sonarqube') {
-                                sh "${scannerHome}/bin/sonar-scanner"
-                            }
-                        } else { 
-                            sh "echo this is not a master branch"
-                        }
-                    }
-                }
-            }
-            stage ("quality gate check") { 
-                steps {
-                    script {
-                        if (env.branch_name == 'master') {
-                            timeout(time: 2, unit: 'MINUTES') {
-                                waitForQualityGate abortPipeline: true
-                            }
-                        } else {
-                            sh "echo this is not a master branch"
-                        }
-                    }
-                }
-            }
-            stage ('maven compile') {
-                steps {
-                    script {
-                        if (env.branch_name == 'master') {
-                            sh "mvn compile"
-                        } else {
-                            sh "echo this is not a master branch"
-                        }
-                    }
-                }
-            }
-            stage ('maven package') {
-                steps {
-                    sh "mvn package"
-                }
-            }
-            stage ('nexus uploader') {
-                steps {
-                    script {
-                        if (env.branch_name == 'master') {
-                            nexusArtifactUploader artifacts: [[artifactId: 'simple-web-app', classifier: '', file: 'target/simple-web-app.war', type: 'war']], credentialsId: '3d0359b0-df05-49b2-8217-684d89e11d6f', groupId: 'org.mitre', nexusUrl: '3.86.220.159:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus_relese', version: '7.8'
-                        } else {
-                            sh "echo this is not a master branch"
-                            
-                        }
-                    }
-                }
-            }
-            stage ('tomcat deploy') {
-                steps {
-                    script {
-                        if (env.branch_name == 'master') {
-                            sh "sudo cp target/*war /opt/apache-tomcat-8.5.51/webapps"
-                        } else {
-                            sh "echo this is not a master branch"
-                        }
-                    }
-                }
-            }
+  agent any 
+  stages {
+    stage ("SCM_CHECKOUT") {
+      steps {
+        script { 
+          if (env.BRANCH_NAME == 'master') {
+            git url: 'https://github.com/vrer2/Sample_Project.git'
+          }
+          else {
+            git branch: 'develop', url: 'https://github.com/vrer2/Sample_Project.git'
+          }
         }
-    post {
-    success {
-        emailext (
-            to: 'naramreddydileepreddy@gmail.com',
-            subject: "JOB: ${env.JOB_NAME} - SUCCESS",
-            body: "JOB SUCCESS - \"${env.JOB_NAME}\" Build No: ${env.BUILD_NUMBER}\n\nClick on the below link to view the logs:\n ${env.BUILD_URL}\n"
-        )
+      }
     }
-    failure {
-		emailext (
-            to: 'naramreddydileepreddy@gmail.com',
-            subject: "JOB: ${env.JOB_NAME} - FAILURE",
-            body: "JOB FAILURE - \"${env.JOB_NAME}\" Build No: ${env.BUILD_NUMBER}\n\nClick on the below link to view the logs:\n ${env.BUILD_URL}\n"
-        )
+    stage ("scan") {
+      environment {
+        scannerHome = tool 'sonarscanner'
+      }
+        steps {
+          withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+          }
+        }
     }
+    stage ("quality") {
+      steps {
+        timeout(time: 05, unit: 'MINUTES') {
+          waitForQualityGate abortPipeline: true
+        }
+      }
     }
+    stage ('maven') {
+      steps { 
+        sh 'mvn clean install'
+      }
+    }
+    stage ('docker') {
+      steps { 
+        sh 'docker build -t dileep9:dileep9 .'
+      }
+    }
+  }
 }
