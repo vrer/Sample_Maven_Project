@@ -44,7 +44,7 @@ pipeline {
     }
     stage ('deploy to ecs') {
       steps {
-        sh "aws ecs update-service --cluster cluster --service test --force-new-deployment --region us-east-2"
+        sh "aws ecs update-service --cluster simple-app --service app --force-new-deployment --region us-east-2"
       }
     }
   }
