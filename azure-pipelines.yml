@@ -19,5 +19,5 @@ steps:
   displayName: 'Run a multi-line script'
 
 - script: 
-    mvn sonar:sonar -Dsonar.host.url=http://ozl0323w:9000/
+    sonar-scanner
   displayName: 'scan'
