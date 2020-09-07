@@ -19,5 +19,5 @@ steps:
   displayName: 'Run a multi-line script'
 
 - script: 
-    sonar-scanner
+    mvn sonar:sonar -Dsonar.host.url=http://test-project.eastus.cloudapp.azure.com:9000/
   displayName: 'scan'
