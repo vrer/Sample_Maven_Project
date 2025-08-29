@@ -1,1 +1,3 @@
-sh /opt/tomcat/bin/startup.sh
+#sh /opt/tomcat/bin/startup.sh
+
+sudo systemctl start httpd

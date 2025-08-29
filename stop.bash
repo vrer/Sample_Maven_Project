@@ -1,1 +1,4 @@
-sh /opt/tomcat/bin/shutdown.sh
+#sh /opt/tomcat/bin/shutdown.sh
+
+
+sudo systemctl stop httpd
