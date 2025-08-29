@@ -1,42 +1,24 @@
 pipeline {
-  agent any 
-  stages {
-    stage ("SCM_CHECKOUT") {
-      steps {
-            git branch: 'master', url: 'https://github.com/vrer2/Sample_Project.git'
-      }
+    agent any
+    environment {
+        BRANCH='develop'
+        sonarProjectkey='maven-project'
     }
-     
-    stage ("quality") {
-      steps {
-        timeout(time: 05, unit: 'MINUTES') {
-          waitForQualityGate abortPipeline: true
+    stages {
+        stage("scm checkout") {
+            steps {
+                sh 'export'
+            }
         }
-      }
-    }
-    stage ('maven') {
-      steps { 
-        sh 'mvn clean install'
-      }
-    }
-    stage ('docker') {
-      steps { 
-        script {
-          docker.build("dileep6:dileep6")
+        stage ("Sonar Analysis") {
+            steps {
+                echo "Hello World"
+            }
         }
-      }
+        stage ("maven build") {
+            steps {
+                echo "Hello World from maven"
+            }
+        }        
     }
-    stage ('ecr') {
-      steps {
-        sh "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 340043406172.dkr.ecr.us-east-2.amazonaws.com"
-        sh "docker tag dileep6:dileep6 340043406172.dkr.ecr.us-east-2.amazonaws.com/dileep:dileep6"
-        sh "docker push 340043406172.dkr.ecr.us-east-2.amazonaws.com/dileep:dileep6"
-      }
-    }
-    stage ('deploy to ecs') {
-      steps {
-        sh "aws ecs update-service --cluster simple-app --service app --force-new-deployment --region us-east-2"
-      }
-    }
-  }
 }
