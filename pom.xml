@@ -23,7 +23,7 @@
 	<groupId>org.mitre</groupId>
 	<artifactId>simple-web-app</artifactId>
 	<packaging>war</packaging>
-	<version>3.1.0-RELEASE</version>
+	<version>0.2-RELEASE</version>
 	<properties>
 		<java-version>1.8</java-version>
 		<mitreid-connect-version>1.3.1</mitreid-connect-version>
@@ -205,15 +205,36 @@
 	</build>
  <distributionManagement>
               <repository>
-                  <id>Release</id>
+                  <id>nexus-deploy</id>
                   <name>Release</name>
-                      <url>http://54.80.13.199:8081/repository/Maven_Hosted/</url>
+                      <url>http://52.211.129.138:8081/repository/java-release/</url>
               </repository>
               <snapshotRepository>
-                  <id>Snapshot</id>
+                  <id>nexus-deploy</id>
                   <name>Snapshot</name>
-                  <url>http://54.80.13.199:8081/repository/Maven2_HSnap/</url>
+                  <url>http://52.211.129.138:8081/repository/java-snapshot/</url>
               </snapshotRepository>
  </distributionManagement>
-	
+ <repositories>
+              <repository>
+                  <id>nexus-deploy</id>
+		  <url>http://52.211.129.138:8081/repository/java-release/</url>
+		  <releases>
+		    <enabled>true</enabled>
+		  </releases>
+		  <snapshots>
+		    <enabled>false</enabled>
+		  </snapshots>
+              </repository>
+              <repository>
+                  <id>nexus-deploy1</id>
+		  <url>http://52.211.129.138:8081/repository/java-snapshot/</url>
+                  <releases>
+                    <enabled>false</enabled>
+                  </releases>
+                  <snapshots>
+                    <enabled>true</enabled>
+                  </snapshots>		  
+              </repository>
+ </repositories>	
 </project>
