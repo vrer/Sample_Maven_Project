@@ -12,7 +12,7 @@ pipeline {
         }
         stage ("Sonar Analysis") {
             steps {
-                echo "Hello World"
+                echo "Hello $BRANCH"
             }
         }
         stage ("maven build") {
