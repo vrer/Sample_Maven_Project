@@ -54,5 +54,29 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            cleanWs()
+            emailext(
+                subject: "✅ SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """<p>Good news!</p>
+                         <p>The job <b>${env.JOB_NAME}</b> build <b>${env.BUILD_NUMBER}</b> has <b style='color:green;'>succeeded</b>.</p>
+                         <p>Check details: <a href='${env.BUILD_URL}'>Build Log</a></p>""",
+                to: "reddyeswar.sre@gmail.com"
+            )
+        }
+
+        failure {
+            emailext(
+                subject: "❌ FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """<p>Unfortunately,</p>
+                         <p>The job <b>${env.JOB_NAME}</b> build <b>${env.BUILD_NUMBER}</b> has <b style='color:red;'>failed</b>.</p>
+                         <p>Check logs here: <a href='${env.BUILD_URL}'>Build Log</a></p>""",
+                to: "reddyeswar.sre@gmail.com"
+            )
+        }
+        always {
+            echo "Alwayssssssssssss"
+        }
+    }
 }
-    
