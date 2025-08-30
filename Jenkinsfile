@@ -17,6 +17,13 @@ pipeline {
                 }
             }
         }
+        stage('Quality Gate Check') {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') { 
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }        
         stage ("maven build") {
             steps {
                 sh "mvn clean deploy"
