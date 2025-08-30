@@ -14,6 +14,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar_server') {
                     sh "${tool 'sonar_scanner'}/bin/sonar-scanner -Dsonar.projectKey=$sonarProjectkey"
+                }
             }
         }
         stage ("maven build") {
